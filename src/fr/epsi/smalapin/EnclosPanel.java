@@ -6,6 +6,7 @@
 package fr.epsi.smalapin;
 
 import fr.epsi.smalapin.agent.Lapin;
+import fr.epsi.smalapin.agent.Renard;
 import fr.epsi.smalapin.environnement.Environnement;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -57,7 +58,7 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
                     env.MiseAJour();
                 }
             };
-            timer.scheduleAtFixedRate(tache, 0, 100);
+            timer.scheduleAtFixedRate(tache, 0, 10);
             enCours = true;
         }
     }
@@ -68,6 +69,9 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
         g.clearRect(0, 0, getWidth(), getHeight() );
         for(Lapin lapin : env.getLapins()) {
             lapin.deplacer(g);
+        }
+        for(Renard renard : env.getRenards()) {
+            renard.deplacer(g);
         }
     }
 

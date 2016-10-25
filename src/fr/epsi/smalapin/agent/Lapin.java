@@ -1,6 +1,7 @@
 package fr.epsi.smalapin.agent;
 
 import fr.epsi.smalapin.environnement.Environnement;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -23,6 +24,7 @@ public class Lapin extends Objet {
             vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         }
         MiseAJourPosition();
+        g.setColor(Color.BLUE);
         dessiner(g);
     }
 

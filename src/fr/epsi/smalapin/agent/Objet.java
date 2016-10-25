@@ -51,7 +51,6 @@ public abstract class Objet {
     }
 
     protected void dessiner(Graphics g) {
-        g.setColor(Color.BLUE);
         g.fillRect((int) posX - 1, (int) posY - 1, 3, 3);
     }
     
