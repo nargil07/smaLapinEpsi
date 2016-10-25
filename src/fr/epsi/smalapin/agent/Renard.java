@@ -35,4 +35,11 @@ public class Renard extends Objet {
         dessiner(g);
     }
 
+    @Override
+    public double getVue() {
+        return 0;//TODO: Get la vison du renard
+    }
+    
+    
+
 }

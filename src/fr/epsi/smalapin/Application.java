@@ -5,6 +5,7 @@
  */
 package fr.epsi.smalapin;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -19,6 +20,7 @@ public class Application {
         fenetre.setLocationRelativeTo(null);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setResizable(false);
+        fenetre.setBackground(new Color(150, 255, 100, 255));
         EnclosPanel enclosPanel = new EnclosPanel();
         fenetre.setContentPane(enclosPanel);
         fenetre.setVisible(true);

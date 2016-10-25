@@ -1,6 +1,8 @@
 package fr.epsi.smalapin.environnement;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import fr.epsi.smalapin.agent.Lapin;
+import fr.epsi.smalapin.agent.Objet;
 import fr.epsi.smalapin.agent.Renard;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Environnement extends Observable{
     protected double largeur;
     protected double hauteur;
     protected List<Lapin> lapins = new ArrayList<>();
+    protected List<Lapin> lapinToAdd = new ArrayList<>();
     protected List<Renard> renards = new ArrayList<>();
 
     private Environnement() {
@@ -36,14 +39,23 @@ public class Environnement extends Observable{
     }
     
     public void init(){
-        for(int i = 0; i < 100; ++i){
+        for(int i = 0; i < 50; ++i){
             lapins.add(new Lapin(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
         }
-        for(int i = 0; i < 50; ++i){
+        for(int i = 0; i < 10; ++i){
             renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
         }
     }
 
+    public List<Lapin> getLapinProche(Objet obj){
+        List<Lapin> results = new ArrayList<>();
+        for(Lapin l : lapins){
+            if(!obj.equals(l) && obj.DistanceCarre(l) < obj.getVue()){
+                results.add(l);
+            }
+        }
+        return results;
+    }
     public Random getGenerateur() {
         return generateur;
     }
@@ -67,8 +79,6 @@ public class Environnement extends Observable{
     public void setHauteur(double hauteur) {
         this.hauteur = hauteur;
     }
-    
-    
 
     public List<Lapin> getLapins() {
         return lapins;
@@ -86,8 +96,17 @@ public class Environnement extends Observable{
         this.renards = renards;
     }
     
+    public void ajoutLapin(Lapin l){
+        lapinToAdd.add(l);
+    }
     
-    
+    /**
+     * Methode qui ajoute les lapins en attente
+     */
+    public void flush(){
+        lapins.addAll(lapinToAdd);
+        lapinToAdd.clear();
+    }
     public void MiseAJour() {
         
         setChanged();

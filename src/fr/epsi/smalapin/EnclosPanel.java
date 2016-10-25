@@ -58,7 +58,7 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
                     env.MiseAJour();
                 }
             };
-            timer.scheduleAtFixedRate(tache, 0, 50);
+            timer.scheduleAtFixedRate(tache, 0, 10);
             enCours = true;
         }
     }
@@ -73,6 +73,8 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
         for(Renard renard : env.getRenards()) {
             renard.deplacer(g, env.getLargeur(), env.getHauteur());
         }
+        
+        env.flush();
     }
 
     @Override

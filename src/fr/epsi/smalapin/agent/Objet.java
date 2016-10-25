@@ -1,6 +1,5 @@
 package fr.epsi.smalapin.agent;
 
-import fr.epsi.smalapin.environnement.Environnement;
 import java.awt.Graphics;
 
 /**
@@ -83,4 +82,6 @@ public abstract class Objet {
         return false;
     }
     public abstract void deplacer(Graphics g, double largeur, double hauteur);
+    
+    public abstract double getVue();
 }
