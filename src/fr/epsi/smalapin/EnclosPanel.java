@@ -30,7 +30,7 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
     TimerTask tache;
 
     public EnclosPanel() {
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.GREEN);
         this.addMouseListener(this);
         
     }
@@ -58,7 +58,7 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
                     env.MiseAJour();
                 }
             };
-            timer.scheduleAtFixedRate(tache, 0, 10);
+            timer.scheduleAtFixedRate(tache, 0, 50);
             enCours = true;
         }
     }
@@ -68,10 +68,10 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
         super.paintComponents(g);
         g.clearRect(0, 0, getWidth(), getHeight() );
         for(Lapin lapin : env.getLapins()) {
-            lapin.deplacer(g);
+            lapin.deplacer(g, env.getLargeur(), env.getHauteur());
         }
         for(Renard renard : env.getRenards()) {
-            renard.deplacer(g);
+            renard.deplacer(g, env.getLargeur(), env.getHauteur());
         }
     }
 

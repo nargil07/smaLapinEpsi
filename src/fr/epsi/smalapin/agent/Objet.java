@@ -1,7 +1,6 @@
 package fr.epsi.smalapin.agent;
 
 import fr.epsi.smalapin.environnement.Environnement;
-import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -31,21 +30,8 @@ public abstract class Objet {
     public void MiseAJourPosition() {
         posX += PAS * vitesseX;
         posY += PAS * vitesseY;
-        double largeur = Environnement.getInstance().getLargeur();
-        double hauteur = Environnement.getInstance().getHauteur();
-        if (posX < 0) {
-            posX = 0;
-        }
-        else if (posX > largeur) {
-            posX = largeur;
-        }
-        if (posY < 0) {
-            posY = 0;
-        }
-        else if (posY > hauteur) {
-            posY = hauteur;
-        }
     }
+    
     public double DistanceCarre(Objet o) {
         return (o.posX - posX) * (o.posX - posX) + (o.posY - posY) * (o.posY - posY);
     }
@@ -54,5 +40,47 @@ public abstract class Objet {
         g.fillRect((int) posX - 1, (int) posY - 1, 3, 3);
     }
     
-    public abstract void deplacer(Graphics g);
+    protected double DistanceAuMur(double murXMin, double murYMin, double murXMax, double murYMax) {
+        double min = Math.min(posX - murXMin, posY - murYMin);
+        min = Math.min(min, murXMax - posX);
+        min = Math.min(min, murYMax - posY);
+        return min;
+    }
+    
+    protected boolean EviterMurs(double murXMin, double murYMin, double murXMax, double murYMax) {
+        // On s'arrête aux murs
+        if (posX < murXMin) {
+            posX = murXMin;
+        }
+        else if (posY < murYMin) {
+            posY = murYMin;
+        }
+        else if (posX > murXMax) {
+            posX = murXMax;
+        }
+        else if (posY > murYMax) {
+            posY = murYMax;
+        }
+        
+        // Changer de direction
+        double distance = DistanceAuMur(murXMin, murYMin, murXMax, murYMax);
+        if (distance < 5) {
+            if (distance == (posX - murXMin)) {
+                vitesseX += 0.1;
+            }
+            else if (distance == (posY - murYMin)) { 
+                vitesseY += 0.1; 
+            } 
+            else if (distance == (murXMax - posX)) {
+                vitesseX -= 0.1;
+            } 
+            else if (distance == (murYMax - posY)) {
+                vitesseY -= 0.1;
+            }   
+            Normaliser();
+            return true;
+        }
+        return false;
+    }
+    public abstract void deplacer(Graphics g, double largeur, double hauteur);
 }
