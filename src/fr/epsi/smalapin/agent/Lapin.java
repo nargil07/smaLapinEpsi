@@ -12,11 +12,11 @@ import java.util.List;
 public class Lapin extends Objet {
 
     protected final static double VUE = 200;
-    protected final static double DISTANCEBEBE = 25;
+    protected final static double DISTANCEBEBE = 40;
     /**
      * Quand la variable arrive a zero le lapin veut se reproduire.
      */
-    protected double reproduction = 10;
+    protected double reproduction = 5;
 
     public Lapin(double _x, double _y) {
         super(_x, _y);
@@ -45,7 +45,6 @@ public class Lapin extends Objet {
                 }
                 if (distance < DISTANCEBEBE) {
                     lapin.faireBebe();
-                    //Le lapin se reproduit même si l'autre ne veut pas
                     reproduction = 80;
                 } else if (lapin != null) {
                     vitesseX = -lapin.vitesseX;

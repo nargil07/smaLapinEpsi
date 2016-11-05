@@ -33,8 +33,6 @@ public class Environnement extends Observable{
 
     private Environnement() {
         this.generateur = new Random();
-        this.largeur = 600;
-        this.hauteur = 400;
         
     }
     

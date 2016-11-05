@@ -5,8 +5,12 @@
  */
 package fr.epsi.smalapin;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -20,9 +24,16 @@ public class Application {
         fenetre.setLocationRelativeTo(null);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setResizable(false);
-        fenetre.setBackground(new Color(150, 255, 100, 255));
+        JPanel contentPane = new JPanel(new BorderLayout());
+        contentPane.setPreferredSize(new Dimension(600, 400));
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.red);
+        panel.setPreferredSize(new Dimension(200, 400));
         EnclosPanel enclosPanel = new EnclosPanel();
-        fenetre.setContentPane(enclosPanel);
+        enclosPanel.setPreferredSize(new Dimension(400, 400));
+        contentPane.add(enclosPanel, BorderLayout.CENTER);
+        contentPane.add(panel, BorderLayout.EAST);
+        fenetre.setContentPane(contentPane);
         fenetre.setVisible(true);
         enclosPanel.Lancer();
         
