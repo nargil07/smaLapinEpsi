@@ -26,8 +26,7 @@ public class Application {
         fenetre.setResizable(false);
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setPreferredSize(new Dimension(600, 400));
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.red);
+        MenuPanel panel = new MenuPanel();
         panel.setPreferredSize(new Dimension(200, 400));
         EnclosPanel enclosPanel = new EnclosPanel();
         enclosPanel.setPreferredSize(new Dimension(400, 400));

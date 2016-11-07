@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  *
  * @author antony
  */
-public class EnclosPanel extends JPanel implements Observer, MouseListener{
+public class EnclosPanel extends JPanel implements Observer{
 
     private Environnement env;
     Timer timer;
@@ -30,9 +30,7 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
     TimerTask tache;
 
     public EnclosPanel() {
-        this.setBackground(Color.GREEN);
-        this.addMouseListener(this);
-        
+        this.setBackground(new Color(0, 240, 50));
     }
     
     public void Lancer() {
@@ -41,28 +39,6 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
         env.setLargeur(this.getWidth()-5);
         env.init();
         env.addObserver(this);
-    }
-    
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (enCours) {
-            // On arrête le timer
-            timer.cancel();
-            timer = null;
-            enCours = false;
-        }
-        else {
-            // On lance le timer
-            timer = new Timer();
-            tache = new TimerTask() {
-                @Override
-                public void run() {
-                    env.MiseAJour();
-                }
-            };
-            timer.scheduleAtFixedRate(tache, 0, 15);
-            enCours = true;
-        }
     }
     
     @Override
@@ -83,26 +59,6 @@ public class EnclosPanel extends JPanel implements Observer, MouseListener{
     public void update(Observable o, Object arg) {
         
         this.repaint();
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        ///throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
