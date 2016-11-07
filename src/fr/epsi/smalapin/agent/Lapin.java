@@ -4,24 +4,24 @@ import fr.epsi.smalapin.environnement.Environnement;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
+import org.omg.CORBA.Environment;
 
 /**
  *
  * @author antony
  */
-public class Lapin extends Objet {
+public class Lapin extends Animal {
 
-    protected final static double VUE = 200;
-    protected final static double DISTANCEBEBE = 40;
     /**
      * Quand la variable arrive a zero le lapin veut se reproduire.
      */
-    protected double reproduction = 5;
+    protected double reproduction = 20;
 
     public Lapin(double _x, double _y) {
         super(_x, _y);
         vitesseX = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
+        reproduction = Environnement.getInstance().getREPRODUCTION();
         Normaliser();
     }
 
@@ -43,9 +43,9 @@ public class Lapin extends Objet {
                         lapin = l;
                     }
                 }
-                if (distance < DISTANCEBEBE) {
+                if (distance < env.getDISTANCEBEBE()) {
                     lapin.faireBebe();
-                    reproduction = 80;
+                    reproduction = Environnement.getInstance().getREPRODUCTION();
                 } else if (lapin != null) {
                     vitesseX = -lapin.vitesseX;
                     vitesseY = -lapin.vitesseY;
@@ -69,12 +69,7 @@ public class Lapin extends Objet {
 
     public void faireBebe() {
         Environnement.getInstance().ajoutLapin(new Lapin(posX, posY));
-        reproduction = 80;
-    }
-
-    @Override
-    public double getVue() {
-        return VUE;
+        reproduction = Environnement.getInstance().getREPRODUCTION();
     }
 
 }

@@ -6,7 +6,7 @@ import java.awt.Graphics;
  *
  * @author antony
  */
-public abstract class Objet {
+public abstract class Animal {
 
     public double posX;
     public double posY;
@@ -15,7 +15,7 @@ public abstract class Objet {
     protected double vitesseX;
     protected double vitesseY;
 
-    public Objet(double _x, double _y) {
+    public Animal(double _x, double _y) {
         posX = _x;
         posY = _y;
     }
@@ -31,7 +31,7 @@ public abstract class Objet {
         posY += PAS * vitesseY;
     }
     
-    public double DistanceCarre(Objet o) {
+    public double DistanceCarre(Animal o) {
         return (o.posX - posX) * (o.posX - posX) + (o.posY - posY) * (o.posY - posY);
     }
 
@@ -82,6 +82,4 @@ public abstract class Objet {
         return false;
     }
     public abstract void deplacer(Graphics g, double largeur, double hauteur);
-    
-    public abstract double getVue();
 }

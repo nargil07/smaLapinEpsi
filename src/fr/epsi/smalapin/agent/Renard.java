@@ -5,7 +5,7 @@
  */
 package fr.epsi.smalapin.agent;
 
-import static fr.epsi.smalapin.agent.Objet.PROB_CHGT_DIRECTION;
+import static fr.epsi.smalapin.agent.Animal.PROB_CHGT_DIRECTION;
 import fr.epsi.smalapin.environnement.Environnement;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,7 +14,7 @@ import java.awt.Graphics;
  *
  * @author antony
  */
-public class Renard extends Objet {
+public class Renard extends Animal {
 
     public Renard(double _x, double _y) {
         super(_x, _y);
@@ -34,12 +34,6 @@ public class Renard extends Objet {
         g.setColor(Color.red);
         dessiner(g);
     }
-
-    @Override
-    public double getVue() {
-        return 0;//TODO: Get la vison du renard
-    }
-    
     
 
 }
