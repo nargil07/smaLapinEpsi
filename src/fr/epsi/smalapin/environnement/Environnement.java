@@ -16,7 +16,17 @@ public class Environnement extends Observable{
     private static Environnement instance;
     protected double VUE = 200;
     protected double DISTANCEBEBE = 40;
-    protected double REPRODUCTION = 20;
+    protected int DISTANCEMIAM = 40;
+    protected int REPRODUCTION = 20;
+    protected int FAIM = 200;
+
+    public int getFAIM() {
+        return FAIM;
+    }
+
+    public void setFAIM(int FAIM) {
+        this.FAIM = FAIM;
+    }
     
     public static Environnement getInstance() {
         if (instance == null) {
@@ -37,11 +47,11 @@ public class Environnement extends Observable{
         
     }
 
-    public double getREPRODUCTION() {
+    public int getREPRODUCTION() {
         return REPRODUCTION;
     }
 
-    public void setREPRODUCTION(double REPRODUCTION) {
+    public void setREPRODUCTION(int REPRODUCTION) {
         this.REPRODUCTION = REPRODUCTION;
     }
     
@@ -61,6 +71,14 @@ public class Environnement extends Observable{
         this.DISTANCEBEBE = DISTANCEBEBE;
     }
     
+    public int getDISTANCEMIAM() {
+        return DISTANCEMIAM;
+    }
+
+    public void setDISTANCEMIAM(int DISTANCEMIAM) {
+        this.DISTANCEMIAM = DISTANCEMIAM;
+    }
+    
     
     
     public void init(){
@@ -68,7 +86,7 @@ public class Environnement extends Observable{
             lapins.add(new Lapin(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
         }
         for(int i = 0; i < 10; ++i){
-            renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
+            renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur, FAIM));
         }
     }
 
@@ -81,6 +99,7 @@ public class Environnement extends Observable{
         }
         return results;
     }
+    
     public Random getGenerateur() {
         return generateur;
     }
@@ -123,6 +142,18 @@ public class Environnement extends Observable{
     
     public void ajoutLapin(Lapin l){
         lapinToAdd.add(l);
+    }
+    
+    public void killRenard(Renard victime){
+        if (renards.indexOf(victime)!= -1){
+            renards.remove(renards.indexOf(victime));
+        }
+    }
+    
+    public void killLapin(Lapin victime){
+        if (lapins.indexOf(victime)!= -1){
+            lapins.remove(lapins.indexOf(victime));
+        }
     }
     
     /**

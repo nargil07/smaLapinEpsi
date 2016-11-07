@@ -14,6 +14,7 @@ public abstract class Animal {
     protected final static double PROB_CHGT_DIRECTION = 0.05;
     protected double vitesseX;
     protected double vitesseY;
+    protected int reproduction;
 
     public Animal(double _x, double _y) {
         posX = _x;
@@ -82,4 +83,5 @@ public abstract class Animal {
         return false;
     }
     public abstract void deplacer(Graphics g, double largeur, double hauteur);
+    
 }
