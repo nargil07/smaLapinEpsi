@@ -28,6 +28,9 @@ public class Environnement extends Observable{
         this.FAIM = FAIM;
     }
     
+    private int nbLapin = 0;
+    private int nbRenard = 0;
+    
     public static Environnement getInstance() {
         if (instance == null) {
             instance = new Environnement();
@@ -44,7 +47,22 @@ public class Environnement extends Observable{
 
     private Environnement() {
         this.generateur = new Random();
-        
+    }
+
+    public int getNbLapin() {
+        return nbLapin;
+    }
+
+    public void setNbLapin(int nbLapin) {
+        this.nbLapin = nbLapin;
+    }
+
+    public int getNbRenard() {
+        return nbRenard;
+    }
+
+    public void setNbRenard(int nbRenard) {
+        this.nbRenard = nbRenard;
     }
 
     public int getREPRODUCTION() {
@@ -79,15 +97,20 @@ public class Environnement extends Observable{
         this.DISTANCEMIAM = DISTANCEMIAM;
     }
     
-    
-    
     public void init(){
-        for(int i = 0; i < 50; ++i){
+        clear();
+        for(int i = 0; i < this.nbLapin; ++i){
             lapins.add(new Lapin(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
         }
-        for(int i = 0; i < 10; ++i){
-            renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur, FAIM));
+        for(int i = 0; i < this.nbRenard; ++i){
+            renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur, Environnement.getInstance().FAIM));
         }
+    }
+    
+    public void clear(){
+        lapins.clear();
+        renards.clear();
+        this.MiseAJour();
     }
 
     public List<Lapin> getLapinProche(Animal obj){
