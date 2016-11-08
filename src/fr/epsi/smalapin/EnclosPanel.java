@@ -10,6 +10,8 @@ import fr.epsi.smalapin.agent.Renard;
 import fr.epsi.smalapin.environnement.Environnement;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
