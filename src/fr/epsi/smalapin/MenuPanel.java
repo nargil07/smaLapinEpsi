@@ -65,9 +65,11 @@ public class MenuPanel extends JPanel {
         sliderFaim.setBackground(new Color(200, 200, 200));
         
         jtfNbLapin = new JTextField();
+        jtfNbLapin.setText("20");
         jtfNbLapin.setPreferredSize(new Dimension(50, 20));
         
         jtfNbRenard = new JTextField();
+        jtfNbRenard.setText("20");
         jtfNbRenard.setPreferredSize(new Dimension(50, 20));
         
         jtfTrueNbLapin = new JTextField();

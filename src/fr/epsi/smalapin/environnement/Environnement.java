@@ -201,6 +201,9 @@ public class Environnement extends Observable{
         renards.addAll(renardToAdd);
         renards.removeAll(renardToKill);
         lapinToAdd.clear();
+        renardToAdd.clear();
+        renardToKill.clear();
+        lapinToKill.clear();
     }
     public void MiseAJour() {
         

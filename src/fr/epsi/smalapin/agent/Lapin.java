@@ -38,7 +38,7 @@ public class Lapin extends Animal {
                 Lapin lapin = null;
                 for (Lapin l : lapinsProche) {
                     double distanceTmp = this.DistanceCarre(l);
-                    if (distance > distanceTmp & l.reproduction <= 0) {
+                    if (distance > distanceTmp && l.reproduction <= 0) {
                         distance = distanceTmp;
                         lapin = l;
                     }
