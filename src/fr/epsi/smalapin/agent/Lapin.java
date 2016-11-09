@@ -61,7 +61,7 @@ public class Lapin extends Animal {
             reproduction--;
         }
 
-        EviterMurs(0, 0, largeur, largeur);
+        EviterMurs(0, 0, largeur, hauteur);
         MiseAJourPosition();
         g.setColor(Color.BLUE);
         dessiner(g);

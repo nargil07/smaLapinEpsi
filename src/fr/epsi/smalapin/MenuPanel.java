@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 /**
@@ -28,6 +29,9 @@ public class MenuPanel extends JPanel {
     private JButton butPause;
     private JButton butReset;
 
+    private JSlider sliderReproduction;
+    private JSlider sliderFaim;
+
     private JTextField jtfNbLapin;
     private JTextField jtfNbRenard;
 
@@ -39,12 +43,29 @@ public class MenuPanel extends JPanel {
     public MenuPanel() {
         this.setLayout(new FlowLayout());
         this.setBackground(new Color(200, 200, 200));
+        
         butLancer = new JButton("Lancer la simulation");
+        
         butPause = new JButton("Pause");
+        
         butReset = new JButton("Reset");
-
+        
+        sliderReproduction = new JSlider(0, 50);
+        sliderReproduction.setMinorTickSpacing(5);
+        sliderReproduction.setMajorTickSpacing(10);
+        sliderReproduction.setPaintTicks(true);
+        sliderReproduction.setPaintLabels(true);
+        sliderReproduction.setBackground(new Color(200, 200, 200));
+        
+        sliderFaim = new JSlider(100, 1000);
+        sliderFaim.setMajorTickSpacing(900);
+        sliderFaim.setPaintTicks(true);
+        sliderFaim.setPaintLabels(true);
+        sliderFaim.setBackground(new Color(200, 200, 200));
+        
         jtfNbLapin = new JTextField();
         jtfNbLapin.setPreferredSize(new Dimension(50, 20));
+        
         jtfNbRenard = new JTextField();
         jtfNbRenard.setPreferredSize(new Dimension(50, 20));
 
@@ -52,6 +73,8 @@ public class MenuPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Environnement env = Environnement.getInstance();
+                env.setREPRODUCTION(52 - sliderReproduction.getValue());
+                env.setFAIM(sliderFaim.getValue());
                 if (reset) {
                     int nbLapin;
                     int nbRenard;
@@ -171,6 +194,10 @@ public class MenuPanel extends JPanel {
         this.add(jtfNbLapin);
         this.add(new JLabel("Nombre Renard :"));
         this.add(jtfNbRenard);
+        this.add(new JLabel("Rapidité de reproduction"));
+        this.add(sliderReproduction);
+        this.add(new JLabel("Resistance à la faim"));
+        this.add(sliderFaim);
     }
 
 }
