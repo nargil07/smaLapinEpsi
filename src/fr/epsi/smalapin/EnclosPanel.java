@@ -26,9 +26,10 @@ public class EnclosPanel extends JPanel implements Observer{
     Timer timer;
     boolean enCours = false;
     TimerTask tache;
-
-    public EnclosPanel() {
+    MenuPanel menuPanel;
+    public EnclosPanel(MenuPanel menuPanel) {
         this.setBackground(new Color(0, 240, 50));
+        this.menuPanel = menuPanel;
     }
     
     public void Lancer() {
@@ -49,7 +50,7 @@ public class EnclosPanel extends JPanel implements Observer{
         for(Renard renard : env.getRenards()) {
             renard.deplacer(g, env.getLargeur(), env.getHauteur());
         }
-        
+        menuPanel.setNbLapinTextField(env.getLapins().size());
         env.flush();
     }
 

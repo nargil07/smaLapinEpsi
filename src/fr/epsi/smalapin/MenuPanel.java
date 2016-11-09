@@ -34,6 +34,7 @@ public class MenuPanel extends JPanel {
 
     private JTextField jtfNbLapin;
     private JTextField jtfNbRenard;
+    private JTextField jtfTrueNbLapin;
 
     private TimerTask tache;
     private Timer timer;
@@ -68,6 +69,9 @@ public class MenuPanel extends JPanel {
         
         jtfNbRenard = new JTextField();
         jtfNbRenard.setPreferredSize(new Dimension(50, 20));
+        
+        jtfTrueNbLapin = new JTextField();
+        jtfTrueNbLapin.setPreferredSize(new Dimension(50, 20));
 
         butLancer.addMouseListener(new MouseListener() {
             @Override
@@ -198,6 +202,13 @@ public class MenuPanel extends JPanel {
         this.add(sliderReproduction);
         this.add(new JLabel("Resistance à la faim"));
         this.add(sliderFaim);
+        this.add(new JLabel("Nombre lapin : "));
+        jtfTrueNbLapin.setEnabled(false);
+        this.add(jtfTrueNbLapin);
+    }
+    
+    public void setNbLapinTextField(int nbLapin){
+        jtfTrueNbLapin.setText(String.valueOf(nbLapin));
     }
 
 }

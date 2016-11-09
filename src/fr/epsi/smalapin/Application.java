@@ -28,7 +28,7 @@ public class Application {
         contentPane.setPreferredSize(new Dimension(600, 400));
         MenuPanel panel = new MenuPanel();
         panel.setPreferredSize(new Dimension(200, 400));
-        EnclosPanel enclosPanel = new EnclosPanel();
+        EnclosPanel enclosPanel = new EnclosPanel(panel);
         enclosPanel.setPreferredSize(new Dimension(400, 400));
         contentPane.add(enclosPanel, BorderLayout.CENTER);
         contentPane.add(panel, BorderLayout.EAST);
