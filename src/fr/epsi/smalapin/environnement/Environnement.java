@@ -17,6 +17,7 @@ public class Environnement extends Observable{
     protected double VUE = 200;
     protected double DISTANCEBEBE = 40;
     protected int DISTANCEMIAM = 40;
+    protected int DISTANCECHASSE = 360;
     protected int REPRODUCTION = 20;
     protected int FAIM = 200;
 
@@ -36,6 +37,13 @@ public class Environnement extends Observable{
             instance = new Environnement();
         }
         return instance;
+    }
+    public int getDISTANCECHASSE() {
+        return DISTANCECHASSE;
+    }
+
+    public void setDISTANCECHASSE(int DISTANCECHASSE) {
+        this.DISTANCECHASSE = DISTANCECHASSE;
     }
     
     protected Random generateur;

@@ -40,6 +40,8 @@ public class Renard extends Animal {
             vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         }
         EviterMurs(0, 0, largeur, hauteur);
+        poursuiteLapin();
+        
         MiseAJourPosition();
         g.setColor(Color.red);
         dessiner(g);
@@ -75,6 +77,21 @@ public class Renard extends Animal {
     }
     
     public void poursuiteLapin(){
-        
+        Environnement env = Environnement.getInstance();
+        List<Lapin> lapinsProche = env.getLapinProche(this);
+        if (lapinsProche.size() > 0) {
+            double distance = 9999;
+            Lapin proie = null;
+            for (Lapin l : lapinsProche) {
+                double distanceTmp = this.DistanceCarre(l);
+                if (distance > distanceTmp & this.laFaim <= env.getFAIM()/2) {
+                    distance = distanceTmp;
+                    proie = l;
+                }
+            }
+            if (proie != null & this.DistanceCarre(proie)<=env.getDISTANCEMIAM()){
+                
+            }
+        }  
     }
 }
