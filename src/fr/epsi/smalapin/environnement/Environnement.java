@@ -44,6 +44,9 @@ public class Environnement extends Observable{
     protected List<Lapin> lapins = new ArrayList<>();
     protected List<Lapin> lapinToAdd = new ArrayList<>();
     protected List<Renard> renards = new ArrayList<>();
+    protected List<Lapin> lapinToKill = new ArrayList<>();
+    protected List<Renard> renardToKill = new ArrayList<>();
+    protected List<Renard> renardToAdd = new ArrayList<>();
 
     private Environnement() {
         this.generateur = new Random();
@@ -105,7 +108,7 @@ public class Environnement extends Observable{
             lapins.add(new Lapin(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
         }
         for(int i = 0; i < this.nbRenard; ++i){
-            renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur, Environnement.getInstance().FAIM));
+            renards.add(new Renard(this.generateur.nextDouble() * largeur, this.generateur.nextDouble() * hauteur));
         }
     }
 
@@ -165,20 +168,20 @@ public class Environnement extends Observable{
         this.renards = renards;
     }
     
+    public void ajoutRenard(Renard rrr){
+        renardToAdd.add(rrr);
+    }
+    
     public void ajoutLapin(Lapin l){
         lapinToAdd.add(l);
     }
     
     public void killRenard(Renard victime){
-        if (renards.indexOf(victime)!= -1){
-            renards.remove(renards.indexOf(victime));
-        }
+        renardToKill.add(victime);
     }
     
     public void killLapin(Lapin victime){
-        if (lapins.indexOf(victime)!= -1){
-            lapins.remove(lapins.indexOf(victime));
-        }
+        lapinToKill.add(victime);
     }
     
     /**
@@ -186,6 +189,9 @@ public class Environnement extends Observable{
      */
     public void flush(){
         lapins.addAll(lapinToAdd);
+        lapins.removeAll(lapinToKill);
+        renards.addAll(renardToAdd);
+        renards.removeAll(renardToKill);
         lapinToAdd.clear();
     }
     public void MiseAJour() {
