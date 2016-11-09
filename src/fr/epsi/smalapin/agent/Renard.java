@@ -19,12 +19,12 @@ public class Renard extends Animal {
     
     int laFaim;
 
-    public Renard(double _x, double _y, int faim) {
+    public Renard(double _x, double _y) {
         super(_x, _y);
         vitesseX = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         reproduction = Environnement.getInstance().getREPRODUCTION()*10;
-        laFaim = faim;
+        laFaim = Environnement.getInstance().getFAIM();
         Normaliser();
     }
 
@@ -32,11 +32,14 @@ public class Renard extends Animal {
     public void deplacer(Graphics g, double largeur, double hauteur) {
         Environnement env = Environnement.getInstance();
         this.affamer();
+        if ( this.laFaim < 0 ) {
+            env.killRenard(this);
+        }
         if (Environnement.getInstance().getGenerateur().nextDouble() < PROB_CHGT_DIRECTION) {
             vitesseX = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
             vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         }
-        EviterMurs(0, 0, largeur, largeur);
+        EviterMurs(0, 0, largeur, hauteur);
         MiseAJourPosition();
         g.setColor(Color.red);
         dessiner(g);
@@ -52,21 +55,26 @@ public class Renard extends Animal {
         List<Lapin> lapinsProche = env.getLapinProche(this);
         if (lapinsProche.size() > 0) {
             double distance = 9999;
-            Lapin lapin = null;
+            Lapin lapinToEat = null;
             for (Lapin l : lapinsProche) {
                 double distanceTmp = this.DistanceCarre(l);
                 if (distance > distanceTmp & this.laFaim <= env.getFAIM()/2) {
                     distance = distanceTmp;
-                    lapin = l;
+                    lapinToEat = l;
                 }
             }
-            if (lapin != null & this.DistanceCarre(lapin)<=env.getDISTANCEMIAM()){
-                env.killLapin(lapin);
+            if (lapinToEat != null & this.DistanceCarre(lapinToEat)<=env.getDISTANCEMIAM()){
+                env.killLapin(lapinToEat);
                 laFaim = env.getFAIM();
-            };
-        }
-        
+            }
+        }  
+    }
+    public void faireBebe() {
+        Environnement.getInstance().ajoutRenard(new Renard(posX, posY));
+        reproduction = Environnement.getInstance().getREPRODUCTION();
     }
     
-
+    public void poursuiteLapin(){
+        
+    }
 }
