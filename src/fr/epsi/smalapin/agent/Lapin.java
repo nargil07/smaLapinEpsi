@@ -47,8 +47,8 @@ public class Lapin extends Animal {
                     lapin.faireBebe();
                     reproduction = Environnement.getInstance().getREPRODUCTION();
                 } else if (lapin != null) {
-                    vitesseX = -lapin.vitesseX;
-                    vitesseY = -lapin.vitesseY;
+                    vitesseX = lapin.posX - this.posX;
+                    vitesseY = lapin.posY - this.posY;
                 } else if (env.getGenerateur().nextDouble() < PROB_CHGT_DIRECTION) {
                     vitesseX = env.getGenerateur().nextDouble() - 0.5;
                     vitesseY = env.getGenerateur().nextDouble() - 0.5;
@@ -60,7 +60,7 @@ public class Lapin extends Animal {
             vitesseY = env.getGenerateur().nextDouble() - 0.5;
             reproduction--;
         }
-
+        Normaliser();
         EviterMurs(0, 0, largeur, hauteur);
         MiseAJourPosition();
         g.setColor(Color.BLUE);

@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Environnement extends Observable{
     private static Environnement instance;
-    protected double VUE = 200;
+    protected double VUE = 40000000;
     protected double DISTANCEBEBE = 40;
     protected int DISTANCEMIAM = 40;
     protected int DISTANCECHASSE = 360;
