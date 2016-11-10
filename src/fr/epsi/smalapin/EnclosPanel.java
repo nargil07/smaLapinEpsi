@@ -51,6 +51,7 @@ public class EnclosPanel extends JPanel implements Observer{
             renard.deplacer(g, env.getLargeur(), env.getHauteur());
         }
         menuPanel.setNbLapinTextField(env.getLapins().size());
+        menuPanel.setNbRenardTextField(env.getRenards().size());
         env.flush();
     }
 
