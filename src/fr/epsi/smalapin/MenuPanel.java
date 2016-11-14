@@ -70,7 +70,7 @@ public class MenuPanel extends JPanel {
         jtfNbLapin.setPreferredSize(new Dimension(50, 20));
         
         jtfNbRenard = new JTextField();
-        jtfNbRenard.setText("20");
+        jtfNbRenard.setText("5");
         jtfNbRenard.setPreferredSize(new Dimension(50, 20));
         
         jtfTrueNbLapin = new JTextField();

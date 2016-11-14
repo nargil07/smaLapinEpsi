@@ -19,11 +19,31 @@ public class Renard extends Animal {
 
     int laFaim;
 
+    public int getLaFaim() {
+        return laFaim;
+    }
+
     public Renard(double _x, double _y) {
         super(_x, _y);
-        vitesseX = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
-        vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
-        reproduction = Environnement.getInstance().getREPRODUCTION() * 10;
+        Environnement env = Environnement.getInstance();
+        vitesseX = env.getGenerateur().nextDouble() - 0.5;
+        vitesseY = env.getGenerateur().nextDouble() - 0.5;
+        reproduction = env.getREPRODUCTION() * 10;
+
+        laFaim = Environnement.getInstance().getFAIM();
+        Normaliser();
+    }
+    
+    public Renard(double _x, double _y, int faim) {
+        super(_x, _y);
+        Environnement env = Environnement.getInstance();
+        vitesseX = env.getGenerateur().nextDouble() - 0.5;
+        vitesseY = env.getGenerateur().nextDouble() - 0.5;
+        if (env.getREPRODUCTION() * 10 < env.getFAIM()) {
+            reproduction = env.getFAIM() + 1;
+        } else {
+            reproduction = env.getREPRODUCTION() * 10;
+        }
         laFaim = Environnement.getInstance().getFAIM();
         Normaliser();
     }
@@ -32,6 +52,7 @@ public class Renard extends Animal {
     public void deplacer(Graphics g, double largeur, double hauteur) {
         Environnement env = Environnement.getInstance();
         this.affamer();
+        reproduction--;
         if (this.laFaim < 0) {
             env.killRenard(this);
         }
@@ -40,9 +61,13 @@ public class Renard extends Animal {
             vitesseY = Environnement.getInstance().getGenerateur().nextDouble() - 0.5;
         }
         EviterMurs(0, 0, largeur, hauteur);
-        poursuiteLapin();
+        if (laFaim > env.getFAIM() / 4 && reproduction <= 0) {
+            rechercheCompagnon();
+        }
+        if (laFaim < env.getFAIM() / 4 && reproduction <= 0 || laFaim <= env.getFAIM() / 2 && reproduction >= 0) {
+            poursuiteLapin();
+        }
         manger();
-        rechercheCompagnon();
         Normaliser();
 
         MiseAJourPosition();
@@ -75,9 +100,15 @@ public class Renard extends Animal {
         }
     }
 
-    public void faireBebe() {
-        Environnement.getInstance().ajoutRenard(new Renard(posX, posY));
-        reproduction = Environnement.getInstance().getREPRODUCTION()*10;
+    public void faireBebe(int faimMoy) {
+        Environnement env = Environnement.getInstance();
+        env.ajoutRenard(new Renard(posX, posY, faimMoy));
+        reproduction = Environnement.getInstance().getREPRODUCTION() * 10;
+        if (env.getREPRODUCTION() * 10 < env.getFAIM()) {
+            reproduction = env.getFAIM() + 1;
+        } else {
+            reproduction = env.getREPRODUCTION() * 10;
+        }
     }
 
     public void poursuiteLapin() {
@@ -102,7 +133,7 @@ public class Renard extends Animal {
 
     private void rechercheCompagnon() {
         Environnement env = Environnement.getInstance();
-        List<Renard> lesRenards = env.getRenards();
+        List<Renard> lesRenards = env.getRenardsProche(this);
         if (lesRenards.size() > 0) {
             double distance = 9999;
             Renard compagnon = null;
@@ -113,9 +144,17 @@ public class Renard extends Animal {
                     compagnon = rrr;
                 }
             }
-            if (compagnon != null && this.DistanceCarre(compagnon) <= env.getDISTANCEBEBE()) {
-                compagnon.faireBebe();
-                this.reproduction = env.getREPRODUCTION()*10;
+            if (distance < env.getDISTANCEBEBE()) {
+                int moyFaim;
+                moyFaim = (this.getLaFaim()+compagnon.getLaFaim())/2;
+                compagnon.faireBebe(moyFaim);
+                reproduction = env.getREPRODUCTION() * 10;
+            } else if (compagnon != null) {
+                vitesseX = compagnon.posX - this.posX;
+                vitesseY = compagnon.posY - this.posY;
+            } else if (env.getGenerateur().nextDouble() < PROB_CHGT_DIRECTION) {
+                vitesseX = env.getGenerateur().nextDouble() - 0.5;
+                vitesseY = env.getGenerateur().nextDouble() - 0.5;
             }
         }
     }

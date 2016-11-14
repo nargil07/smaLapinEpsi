@@ -136,6 +136,16 @@ public class Environnement extends Observable{
         return results;
     }
     
+    public List<Renard> getRenardsProche(Animal obj){
+        List<Renard> results = new ArrayList<>();
+        for(Renard rrr : renards){
+            if(!obj.equals(rrr) && obj.DistanceCarre(rrr) < getVUE()){
+                results.add(rrr);
+            }
+        }
+        return results;
+    }
+    
     public Random getGenerateur() {
         return generateur;
     }
